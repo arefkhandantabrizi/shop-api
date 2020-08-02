@@ -1,0 +1,6 @@
+{
+  "jwtPrivateKey": "",
+  "db": "mongodb://localhost/shop",
+  "port": "3900",
+  "merchantID": ""
+}
