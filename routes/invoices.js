@@ -1,7 +1,7 @@
 const { Invoice, validate } = require("../models/invoice");
 const _ = require("lodash");
 const auth = require("../middleware/auth");
-// const admin = require("../middleware/admin");
+const admin = require("../middleware/admin");
 // const validateObjectId = require("../middleware/validateObjectId");
 // const moment = require("moment-jalaali");
 const { Router } = require("express");
@@ -9,12 +9,12 @@ const router = Router();
 
 // moment().format("jYYYY/jM/jD");
 
-router.get("/", async (req, res) => {
+router.get("/", [auth, admin], async (req, res) => {
   const invoices = await Invoice.find().select("-__v");
   res.send(invoices);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [auth], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 

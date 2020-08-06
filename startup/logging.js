@@ -9,12 +9,12 @@ module.exports = function () {
   });
 
   logger.exceptions.handle(new transports.File({ filename: "exceptions.log" }));
-  winston.add(
-    new winston.transports.MongoDB({
-      db: "mongodb://localhost/shop",
-      level: "info",
-    })
-  );
+  // winston.add(
+  //   new winston.transports.MongoDB({
+  //     db: "mongodb://localhost/shop",
+  //     level: "error",
+  //   })
+  // );
 
   process.on("unhandledRejection", (ex) => {
     throw ex;
