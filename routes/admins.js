@@ -1,39 +1,30 @@
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const express = require("express");
-const { User, validate } = require("../models/user");
+const { Admin, validate } = require("../models/admin");
 const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/me", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("-password");
-  res.send(user);
+  const admin = await Admin.findById(req.admin._id).select("-password");
+  res.send(admin);
 });
 
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let user = await User.findOne({ username: req.body.username });
-  if (user) return res.status(400).send("این کاربر قبلا ثبت نام کرده است");
+  let admin = await Admin.findOne({ username: req.body.username });
+  if (admin) return res.status(400).send("این نام کاربری قبلا استفاده شده است");
 
-  user = new User(
-    _.pick(req.body, [
-      "name",
-      "username",
-      "password",
-      "schoolname",
-      "schoolgrade",
-      "gender",
-    ])
-  );
+  admin = new Admin(_.pick(req.body, ["name", "username", "password"]));
 
   const salt = await bcrypt.genSalt(10);
 
-  user.password = await bcrypt.hash(user.password, salt);
-  await user.save();
+  admin.password = await bcrypt.hash(admin.password, salt);
+  await admin.save();
 
-  const token = user.generateAuthToken();
+  const token = admin.generateAuthToken();
   res
     .header("x-auth-token", token)
     .header("access-control-expose-headers", "x-auth-token")

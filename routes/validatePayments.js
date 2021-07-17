@@ -12,11 +12,13 @@ router.post("/", async (req, res) => {
       Amount: req.body.Amount, // In Tomans
       Authority: req.body.Authority,
     });
-    if (response.status === -21) {
-      res.send("Empty!");
-    } else {
-      res.send(response.RefID);
-    }
+
+    res.send(response);
+    // if (response.status === -21) {
+    //   res.send("Empty!");
+    // } else {
+    //   res.send(response.RefID);
+    // }
   } catch (error) {
     res.send(error);
   }

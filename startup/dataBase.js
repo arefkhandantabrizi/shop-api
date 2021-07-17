@@ -2,12 +2,9 @@ const winston = require("winston");
 const mongoose = require("mongoose");
 const config = require("config");
 
-module.exports = function() {
-  const db = config.get("db");
+module.exports = function () {
+  const db = config.get("localdb");
   mongoose
-    .connect(db, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+    .connect(db, { useNewUrlParser: true })
     .then(() => winston.info(`Connected to ${db}....`));
 };

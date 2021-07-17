@@ -41,25 +41,13 @@ router.post("/", [auth], async (req, res) => {
   res.send(invoice);
 });
 
-router.put("/:id", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+router.put("/:id", [auth], async (req, res) => {
+  // const { error } = validate(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
   const invoice = await Invoice.findByIdAndUpdate(
-    req.params.id,
-    _.pick(req.body, [
-      "name",
-      "username",
-      "schoolname",
-      "schoolgrade",
-      "items",
-      "address",
-      "phone",
-      "totalprice",
-      "ispayed",
-      "paymentcode",
-      "proccessed",
-    ]),
+    req.body._id,
+    { ispayed: req.body.ispayed, paymentcode: req.body.paymentcode },
     { new: true }
   );
 

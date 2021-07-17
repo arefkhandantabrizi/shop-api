@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   try {
     const response = await zarinpal.PaymentRequest({
       Amount: req.body.Amount, // In Tomans
-      CallbackURL: "https://tolidimelina.ir/validate",
+      CallbackURL: "https://tolidimelina.ir/#/validate",
       Description: req.body.username,
       Email: "admin@tolidimelina.ir",
       Mobile: req.body.phone,

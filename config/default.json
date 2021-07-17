@@ -1,6 +1,7 @@
 {
   "jwtPrivateKey": "",
-  "db": "mongodb://localhost/shop",
+  "db": "mongodb://tolidime_admin:tolidimodir@https://api.tolidimelina.ir:27017/tolidime_shop",
+  "localdb": "mongodb://localhost:27017/shop",
   "port": "3900",
   "merchantID": ""
 }
